@@ -5,6 +5,7 @@ export interface IHistory {
   predictionInput?: string | null;
   predictionResult?: string | null;
   user?: Pick<IUser, 'id' | 'login'> | null;
+  createdDate?: string | null;
 }
 
 export type NewHistory = Omit<IHistory, 'id'> & { id: null };
