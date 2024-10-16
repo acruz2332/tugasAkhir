@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-3">
+  </div>
+
+  <div class="col-md-9">
+    <h1 class="display-4"><span>Welcome!</span></h1>
+
+    <p class="lead">This is your homepage</p>
+
+    <div>
+      @if (account !== null) {
+          @if (account) {
+            <div class="alert alert-success">
+              <span id="home-logged-message">You are logged in as user &quot;{{ account.login }}&quot;.</span>
+            </div>
+
+            <span>Click button below to access prediction page</span><br>
+            <button class="btn btn-primary" routerLink="/prediction">Prediction page</button>
+          }
+      }
+    </div>
+
+  </div>
+</div>

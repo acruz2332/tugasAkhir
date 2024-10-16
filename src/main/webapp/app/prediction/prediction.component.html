@@ -1,0 +1,108 @@
+<div class="card 100w">
+  <div class="container-fluid d-flex align-items-center justify-content-center">
+    <div class="col-4 ">
+      <p class="text-center">prediction works</p>
+      <form role="form" class="w-100" novalidate [formGroup]="editForm">
+        <div class="mt-4 mb-4">
+          <label>Window Size:</label>
+          <ng-select
+            [items]="windowSize"
+            bindLabel="value"
+            bindValue="value"
+            class="form-control"
+            formControlName="windowSize"
+            (change)="setRows($event)"
+          >
+          </ng-select>
+        </div>
+
+        <div class="mt-4 mb-4">
+          <label>Prediction day:</label>
+          <ng-select
+            [items]="predictionDay"
+            bindLabel="value"
+            bindValue="value"
+            class="form-control"
+            formControlName="predictionDay"
+          >
+          </ng-select>
+        </div>
+
+        <div class="p-2">
+          <table class="table table-striped table-fixed" aria-describedby="page-heading">
+            <thead>
+            <tr>
+
+              <th scope="col" class="align-middle custom-col-w-10">
+                <div class="d-flex ms-3">
+                  <span>Open</span>
+                </div>
+              </th>
+              <th scope="col" class="align-middle custom-col-w-10">
+                <div class="d-flex ms-3">
+                  <span>High</span>
+                </div>
+              </th>
+              <th scope="col" class="align-middle custom-col-w-10">
+                <div class="d-flex ms-3">
+                  <span>Low</span>
+                </div>
+              </th>
+              <th scope="col" class="align-middle custom-col-w-20">
+                <div class="d-flex ms-3">
+                  <span>Close</span>
+                </div>
+              </th>
+              <th scope="col" class="align-middle custom-col-w-20">
+                <div class="d-flex ms-3">
+                  <span>Volume</span>
+                </div>
+              </th>
+
+            </tr>
+            </thead>
+            <tbody formArrayName="data">
+            <tr *ngFor="let item of getDataRows().controls; index as i" [formGroupName]="i">
+              <td>
+                <input type="number" class="form-control" placeholder="open" formControlName="open">
+              </td>
+              <td>
+                <input type="number" class="form-control" placeholder="high" formControlName="high">
+              </td>
+              <td>
+                <input type="number" class="form-control" placeholder="low" formControlName="low">
+              </td>
+              <td>
+                <input type="number" class="form-control" placeholder="close" formControlName="close">
+              </td>
+              <td>
+                <input type="number" class="form-control" placeholder="volume" formControlName="volume">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <button class="btn btn-primary mt-4" (click)="sent()">Predict</button>
+
+        <div *ngIf="prediction" class="mt-2 mb-2">
+          <div *ngIf="prediction?.length == 4">
+            <span>Open: {{prediction![0]}}</span> <br>
+            <span>High: {{prediction![1]}}</span> <br>
+            <span>Low: {{prediction![2]}}</span> <br>
+            <span>Close: {{prediction![3]}}</span> <br>
+          </div>
+          <div *ngIf="prediction?.length == 3">
+            <div *ngFor="let item of prediction; index as i" class="mt-2 mb-2">
+              <span>Prediction day {{i+1}}</span><br>
+              <span>Open: {{item[0]}}</span> <br>
+              <span>High: {{item[1]}}</span> <br>
+              <span>Low: {{item[2]}}</span> <br>
+              <span>Close: {{item[3]}}</span> <br>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
