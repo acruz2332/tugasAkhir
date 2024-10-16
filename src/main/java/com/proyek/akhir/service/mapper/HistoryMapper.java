@@ -19,4 +19,5 @@ public interface HistoryMapper extends EntityMapper<HistoryDTO, History> {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "login", source = "login")
     UserDTO toDtoUserLogin(User user);
+
 }

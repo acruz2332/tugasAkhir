@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "history")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class History implements Serializable {
+public class History extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
