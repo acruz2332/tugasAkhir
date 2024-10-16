@@ -22,6 +22,8 @@ describe('History Form Service', () => {
             id: expect.any(Object),
             predictionInput: expect.any(Object),
             predictionResult: expect.any(Object),
+            predictionDay: expect.any(Object),
+            windowSize: expect.any(Object),
             user: expect.any(Object),
           }),
         );
@@ -35,6 +37,8 @@ describe('History Form Service', () => {
             id: expect.any(Object),
             predictionInput: expect.any(Object),
             predictionResult: expect.any(Object),
+            predictionDay: expect.any(Object),
+            windowSize: expect.any(Object),
             user: expect.any(Object),
           }),
         );

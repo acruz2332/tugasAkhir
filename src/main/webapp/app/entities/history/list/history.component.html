@@ -8,15 +8,15 @@
         <span>Refresh list</span>
       </button>
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-history"
-        [routerLink]="['/history/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span>Create a new History</span>
-      </button>
+<!--      <button-->
+<!--        id="jh-create-entity"-->
+<!--        data-cy="entityCreateButton"-->
+<!--        class="btn btn-primary jh-create-entity create-history"-->
+<!--        [routerLink]="['/history/new']"-->
+<!--      >-->
+<!--        <fa-icon icon="plus"></fa-icon>-->
+<!--        <span>Create a new History</span>-->
+<!--      </button>-->
     </div>
   </h2>
 
@@ -42,6 +42,14 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+
+            <th scope="col" jhiSortBy="user.login">
+              <div class="d-flex">
+                <span>User</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+
             <th scope="col" jhiSortBy="predictionInput">
               <div class="d-flex">
                 <span>Prediction Input</span>
@@ -56,13 +64,27 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="user.login">
+            <th scope="col" jhiSortBy="predictionDay">
               <div class="d-flex">
-                <span>User</span>
+                <span>Prediction Day</span>
+
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col"></th>
+            <th scope="col" jhiSortBy="windowSize">
+              <div class="d-flex">
+                <span>Window Size</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex">
+                <span>Prediction Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -71,11 +93,14 @@
               <td>
                 <a [routerLink]="['/history', history.id, 'view']">{{ history.id }}</a>
               </td>
-              <td>{{ history.predictionInput }}</td>
-              <td>{{ history.predictionResult }}</td>
               <td>
                 {{ history.user?.login }}
               </td>
+              <td>{{ history.predictionInput }}</td>
+              <td>{{ history.predictionResult }}</td>
+              <td>{{ history.predictionDay }}</td>
+              <td>{{ history.windowSize }}</td>
+              <td>{{ dayjs(history.createdDate!) }}</td>
               <td class="text-end">
                 <div class="btn-group">
                   <a [routerLink]="['/history', history.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
@@ -83,10 +108,10 @@
                     <span class="d-none d-md-inline">View</span>
                   </a>
 
-                  <a [routerLink]="['/history', history.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                    <fa-icon icon="pencil-alt"></fa-icon>
-                    <span class="d-none d-md-inline">Edit</span>
-                  </a>
+<!--                  <a [routerLink]="['/history', history.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">-->
+<!--                    <fa-icon icon="pencil-alt"></fa-icon>-->
+<!--                    <span class="d-none d-md-inline">Edit</span>-->
+<!--                  </a>-->
 
                   <button type="submit" (click)="delete(history)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                     <fa-icon icon="times"></fa-icon>

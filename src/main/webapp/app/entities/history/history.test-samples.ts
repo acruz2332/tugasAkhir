@@ -1,26 +1,34 @@
 import { IHistory, NewHistory } from './history.model';
 
 export const sampleWithRequiredData: IHistory = {
-  id: 13667,
-  predictionInput: 'clavicle after slice',
-  predictionResult: 'yippee gracefully',
+  id: 2271,
+  predictionInput: 'reef among',
+  predictionResult: 'understatement',
+  predictionDay: 19608,
+  windowSize: 30566,
 };
 
 export const sampleWithPartialData: IHistory = {
-  id: 22525,
-  predictionInput: 'tackle',
-  predictionResult: 'happily camp lest',
+  id: 11227,
+  predictionInput: 'boiling whoever sausage',
+  predictionResult: 'whitewash hmph',
+  predictionDay: 29173,
+  windowSize: 5387,
 };
 
 export const sampleWithFullData: IHistory = {
-  id: 12486,
-  predictionInput: 'athwart yet',
-  predictionResult: 'during gracefully',
+  id: 9614,
+  predictionInput: 'lest',
+  predictionResult: 'backfill railroad',
+  predictionDay: 32200,
+  windowSize: 13025,
 };
 
 export const sampleWithNewData: NewHistory = {
-  predictionInput: 'incommode frighten',
-  predictionResult: 'fumbling bolt',
+  predictionInput: 'unto hopelessly',
+  predictionResult: 'bitterly kookily',
+  predictionDay: 28836,
+  windowSize: 5620,
   id: null,
 };
 

@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "history")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class History implements Serializable {
+public class History extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,6 +27,14 @@ public class History implements Serializable {
     @NotNull
     @Column(name = "prediction_result", nullable = false)
     private String predictionResult;
+
+    @NotNull
+    @Column(name = "prediction_day", nullable = false)
+    private Integer predictionDay;
+
+    @NotNull
+    @Column(name = "window_size", nullable = false)
+    private Integer windowSize;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -72,6 +80,32 @@ public class History implements Serializable {
         this.predictionResult = predictionResult;
     }
 
+    public Integer getPredictionDay() {
+        return this.predictionDay;
+    }
+
+    public History predictionDay(Integer predictionDay) {
+        this.setPredictionDay(predictionDay);
+        return this;
+    }
+
+    public void setPredictionDay(Integer predictionDay) {
+        this.predictionDay = predictionDay;
+    }
+
+    public Integer getWindowSize() {
+        return this.windowSize;
+    }
+
+    public History windowSize(Integer windowSize) {
+        this.setWindowSize(windowSize);
+        return this;
+    }
+
+    public void setWindowSize(Integer windowSize) {
+        this.windowSize = windowSize;
+    }
+
     public User getUser() {
         return this.user;
     }
@@ -111,6 +145,8 @@ public class History implements Serializable {
             "id=" + getId() +
             ", predictionInput='" + getPredictionInput() + "'" +
             ", predictionResult='" + getPredictionResult() + "'" +
+            ", predictionDay=" + getPredictionDay() +
+            ", windowSize=" + getWindowSize() +
             "}";
     }
 }

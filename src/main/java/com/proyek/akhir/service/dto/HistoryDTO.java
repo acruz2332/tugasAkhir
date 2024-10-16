@@ -2,6 +2,7 @@ package com.proyek.akhir.service.dto;
 
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -18,7 +19,25 @@ public class HistoryDTO implements Serializable {
     @NotNull
     private String predictionResult;
 
+    @NotNull
+    private Integer predictionDay;
+
+    @NotNull
+    private Integer windowSize;
+
     private UserDTO user;
+
+
+    private Instant createdDate;
+
+
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
 
     public Long getId() {
         return id;
@@ -42,6 +61,22 @@ public class HistoryDTO implements Serializable {
 
     public void setPredictionResult(String predictionResult) {
         this.predictionResult = predictionResult;
+    }
+
+    public Integer getPredictionDay() {
+        return predictionDay;
+    }
+
+    public void setPredictionDay(Integer predictionDay) {
+        this.predictionDay = predictionDay;
+    }
+
+    public Integer getWindowSize() {
+        return windowSize;
+    }
+
+    public void setWindowSize(Integer windowSize) {
+        this.windowSize = windowSize;
     }
 
     public UserDTO getUser() {
@@ -80,6 +115,8 @@ public class HistoryDTO implements Serializable {
             "id=" + getId() +
             ", predictionInput='" + getPredictionInput() + "'" +
             ", predictionResult='" + getPredictionResult() + "'" +
+            ", predictionDay=" + getPredictionDay() +
+            ", windowSize=" + getWindowSize() +
             ", user=" + getUser() +
             "}";
     }

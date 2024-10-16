@@ -57,6 +57,50 @@
         </div>
 
         <div class="mb-3">
+          <label class="form-label" for="field_predictionDay">Prediction Day</label>
+          <input
+            type="number"
+            class="form-control"
+            name="predictionDay"
+            id="field_predictionDay"
+            data-cy="predictionDay"
+            formControlName="predictionDay"
+          />
+          @if (editForm.get('predictionDay')!.invalid && (editForm.get('predictionDay')!.dirty || editForm.get('predictionDay')!.touched)) {
+            <div>
+              @if (editForm.get('predictionDay')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('predictionDay')?.errors?.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_windowSize">Window Size</label>
+          <input
+            type="number"
+            class="form-control"
+            name="windowSize"
+            id="field_windowSize"
+            data-cy="windowSize"
+            formControlName="windowSize"
+          />
+          @if (editForm.get('windowSize')!.invalid && (editForm.get('windowSize')!.dirty || editForm.get('windowSize')!.touched)) {
+            <div>
+              @if (editForm.get('windowSize')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('windowSize')?.errors?.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
           <label class="form-label" for="field_user">User</label>
           <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
             <option [ngValue]="null"></option>

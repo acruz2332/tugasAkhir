@@ -15,7 +15,7 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { IHistory } from '../history.model';
 import { EntityArrayResponseType, HistoryService } from '../service/history.service';
 import { HistoryDeleteDialogComponent } from '../delete/history-delete-dialog.component';
-
+import dayjs from 'dayjs';
 @Component({
   standalone: true,
   selector: 'jhi-history',
@@ -150,4 +150,6 @@ export class HistoryComponent implements OnInit {
       return [predicate + ',' + ascendingQueryParam];
     }
   }
+
+  protected readonly dayjs = dayjs;
 }

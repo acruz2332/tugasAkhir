@@ -46,6 +46,12 @@ class HistoryResourceIT {
     private static final String DEFAULT_PREDICTION_RESULT = "AAAAAAAAAA";
     private static final String UPDATED_PREDICTION_RESULT = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_PREDICTION_DAY = 1;
+    private static final Integer UPDATED_PREDICTION_DAY = 2;
+
+    private static final Integer DEFAULT_WINDOW_SIZE = 1;
+    private static final Integer UPDATED_WINDOW_SIZE = 2;
+
     private static final String ENTITY_API_URL = "/api/histories";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -79,7 +85,11 @@ class HistoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static History createEntity(EntityManager em) {
-        History history = new History().predictionInput(DEFAULT_PREDICTION_INPUT).predictionResult(DEFAULT_PREDICTION_RESULT);
+        History history = new History()
+            .predictionInput(DEFAULT_PREDICTION_INPUT)
+            .predictionResult(DEFAULT_PREDICTION_RESULT)
+            .predictionDay(DEFAULT_PREDICTION_DAY)
+            .windowSize(DEFAULT_WINDOW_SIZE);
         return history;
     }
 
@@ -90,7 +100,11 @@ class HistoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static History createUpdatedEntity(EntityManager em) {
-        History history = new History().predictionInput(UPDATED_PREDICTION_INPUT).predictionResult(UPDATED_PREDICTION_RESULT);
+        History history = new History()
+            .predictionInput(UPDATED_PREDICTION_INPUT)
+            .predictionResult(UPDATED_PREDICTION_RESULT)
+            .predictionDay(UPDATED_PREDICTION_DAY)
+            .windowSize(UPDATED_WINDOW_SIZE);
         return history;
     }
 
@@ -115,6 +129,8 @@ class HistoryResourceIT {
         History testHistory = historyList.get(historyList.size() - 1);
         assertThat(testHistory.getPredictionInput()).isEqualTo(DEFAULT_PREDICTION_INPUT);
         assertThat(testHistory.getPredictionResult()).isEqualTo(DEFAULT_PREDICTION_RESULT);
+        assertThat(testHistory.getPredictionDay()).isEqualTo(DEFAULT_PREDICTION_DAY);
+        assertThat(testHistory.getWindowSize()).isEqualTo(DEFAULT_WINDOW_SIZE);
     }
 
     @Test
@@ -174,6 +190,42 @@ class HistoryResourceIT {
 
     @Test
     @Transactional
+    void checkPredictionDayIsRequired() throws Exception {
+        int databaseSizeBeforeTest = historyRepository.findAll().size();
+        // set the field null
+        history.setPredictionDay(null);
+
+        // Create the History, which fails.
+        HistoryDTO historyDTO = historyMapper.toDto(history);
+
+        restHistoryMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(historyDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<History> historyList = historyRepository.findAll();
+        assertThat(historyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkWindowSizeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = historyRepository.findAll().size();
+        // set the field null
+        history.setWindowSize(null);
+
+        // Create the History, which fails.
+        HistoryDTO historyDTO = historyMapper.toDto(history);
+
+        restHistoryMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(historyDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<History> historyList = historyRepository.findAll();
+        assertThat(historyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllHistories() throws Exception {
         // Initialize the database
         historyRepository.saveAndFlush(history);
@@ -185,7 +237,9 @@ class HistoryResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(history.getId().intValue())))
             .andExpect(jsonPath("$.[*].predictionInput").value(hasItem(DEFAULT_PREDICTION_INPUT)))
-            .andExpect(jsonPath("$.[*].predictionResult").value(hasItem(DEFAULT_PREDICTION_RESULT)));
+            .andExpect(jsonPath("$.[*].predictionResult").value(hasItem(DEFAULT_PREDICTION_RESULT)))
+            .andExpect(jsonPath("$.[*].predictionDay").value(hasItem(DEFAULT_PREDICTION_DAY)))
+            .andExpect(jsonPath("$.[*].windowSize").value(hasItem(DEFAULT_WINDOW_SIZE)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -218,7 +272,9 @@ class HistoryResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(history.getId().intValue()))
             .andExpect(jsonPath("$.predictionInput").value(DEFAULT_PREDICTION_INPUT))
-            .andExpect(jsonPath("$.predictionResult").value(DEFAULT_PREDICTION_RESULT));
+            .andExpect(jsonPath("$.predictionResult").value(DEFAULT_PREDICTION_RESULT))
+            .andExpect(jsonPath("$.predictionDay").value(DEFAULT_PREDICTION_DAY))
+            .andExpect(jsonPath("$.windowSize").value(DEFAULT_WINDOW_SIZE));
     }
 
     @Test
@@ -240,7 +296,11 @@ class HistoryResourceIT {
         History updatedHistory = historyRepository.findById(history.getId()).orElseThrow();
         // Disconnect from session so that the updates on updatedHistory are not directly saved in db
         em.detach(updatedHistory);
-        updatedHistory.predictionInput(UPDATED_PREDICTION_INPUT).predictionResult(UPDATED_PREDICTION_RESULT);
+        updatedHistory
+            .predictionInput(UPDATED_PREDICTION_INPUT)
+            .predictionResult(UPDATED_PREDICTION_RESULT)
+            .predictionDay(UPDATED_PREDICTION_DAY)
+            .windowSize(UPDATED_WINDOW_SIZE);
         HistoryDTO historyDTO = historyMapper.toDto(updatedHistory);
 
         restHistoryMockMvc
@@ -257,6 +317,8 @@ class HistoryResourceIT {
         History testHistory = historyList.get(historyList.size() - 1);
         assertThat(testHistory.getPredictionInput()).isEqualTo(UPDATED_PREDICTION_INPUT);
         assertThat(testHistory.getPredictionResult()).isEqualTo(UPDATED_PREDICTION_RESULT);
+        assertThat(testHistory.getPredictionDay()).isEqualTo(UPDATED_PREDICTION_DAY);
+        assertThat(testHistory.getWindowSize()).isEqualTo(UPDATED_WINDOW_SIZE);
     }
 
     @Test
@@ -336,7 +398,10 @@ class HistoryResourceIT {
         History partialUpdatedHistory = new History();
         partialUpdatedHistory.setId(history.getId());
 
-        partialUpdatedHistory.predictionInput(UPDATED_PREDICTION_INPUT);
+        partialUpdatedHistory
+            .predictionInput(UPDATED_PREDICTION_INPUT)
+            .predictionDay(UPDATED_PREDICTION_DAY)
+            .windowSize(UPDATED_WINDOW_SIZE);
 
         restHistoryMockMvc
             .perform(
@@ -352,6 +417,8 @@ class HistoryResourceIT {
         History testHistory = historyList.get(historyList.size() - 1);
         assertThat(testHistory.getPredictionInput()).isEqualTo(UPDATED_PREDICTION_INPUT);
         assertThat(testHistory.getPredictionResult()).isEqualTo(DEFAULT_PREDICTION_RESULT);
+        assertThat(testHistory.getPredictionDay()).isEqualTo(UPDATED_PREDICTION_DAY);
+        assertThat(testHistory.getWindowSize()).isEqualTo(UPDATED_WINDOW_SIZE);
     }
 
     @Test
@@ -366,7 +433,11 @@ class HistoryResourceIT {
         History partialUpdatedHistory = new History();
         partialUpdatedHistory.setId(history.getId());
 
-        partialUpdatedHistory.predictionInput(UPDATED_PREDICTION_INPUT).predictionResult(UPDATED_PREDICTION_RESULT);
+        partialUpdatedHistory
+            .predictionInput(UPDATED_PREDICTION_INPUT)
+            .predictionResult(UPDATED_PREDICTION_RESULT)
+            .predictionDay(UPDATED_PREDICTION_DAY)
+            .windowSize(UPDATED_WINDOW_SIZE);
 
         restHistoryMockMvc
             .perform(
@@ -382,6 +453,8 @@ class HistoryResourceIT {
         History testHistory = historyList.get(historyList.size() - 1);
         assertThat(testHistory.getPredictionInput()).isEqualTo(UPDATED_PREDICTION_INPUT);
         assertThat(testHistory.getPredictionResult()).isEqualTo(UPDATED_PREDICTION_RESULT);
+        assertThat(testHistory.getPredictionDay()).isEqualTo(UPDATED_PREDICTION_DAY);
+        assertThat(testHistory.getWindowSize()).isEqualTo(UPDATED_WINDOW_SIZE);
     }
 
     @Test

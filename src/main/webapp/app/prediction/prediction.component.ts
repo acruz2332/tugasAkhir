@@ -12,7 +12,7 @@ import {PredictionService} from 'app/prediction/service/prediction.service';
 export class PredictionComponent {
   windowSize = [
     {value: 3, text: '3'},
-    {value: 7, text: '7'}
+    // {value: 7, text: '7'}
   ]
   predictionDay = [
     {value: 1, text: '1'},
@@ -53,7 +53,6 @@ export class PredictionComponent {
   setRows(event: any): any {
     this.getDataRows().clear();
     if (event.value === 3){
-      this.addNewDataRow();
       this.addNewDataRow();
       this.addNewDataRow();
       this.addNewDataRow();

@@ -20,6 +20,8 @@ type HistoryFormGroupContent = {
   id: FormControl<IHistory['id'] | NewHistory['id']>;
   predictionInput: FormControl<IHistory['predictionInput']>;
   predictionResult: FormControl<IHistory['predictionResult']>;
+  predictionDay: FormControl<IHistory['predictionDay']>;
+  windowSize: FormControl<IHistory['windowSize']>;
   user: FormControl<IHistory['user']>;
 };
 
@@ -44,6 +46,12 @@ export class HistoryFormService {
         validators: [Validators.required],
       }),
       predictionResult: new FormControl(historyRawValue.predictionResult, {
+        validators: [Validators.required],
+      }),
+      predictionDay: new FormControl(historyRawValue.predictionDay, {
+        validators: [Validators.required],
+      }),
+      windowSize: new FormControl(historyRawValue.windowSize, {
         validators: [Validators.required],
       }),
       user: new FormControl(historyRawValue.user),

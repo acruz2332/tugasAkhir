@@ -20,6 +20,12 @@
             <column name="prediction_result" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="prediction_day" type="integer">
+                <constraints nullable="false" />
+            </column>
+            <column name="window_size" type="integer">
+                <constraints nullable="false" />
+            </column>
             <column name="user_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -46,6 +52,8 @@
             <column name="id" type="numeric"/>
             <column name="prediction_input" type="string"/>
             <column name="prediction_result" type="string"/>
+            <column name="prediction_day" type="numeric"/>
+            <column name="window_size" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
