@@ -16,6 +16,8 @@ import { IHistory } from '../history.model';
 import { EntityArrayResponseType, HistoryService } from '../service/history.service';
 import { HistoryDeleteDialogComponent } from '../delete/history-delete-dialog.component';
 import dayjs from 'dayjs';
+import {AccountService} from 'app/core/auth/account.service';
+import {Account} from 'app/core/auth/account.model';
 @Component({
   standalone: true,
   selector: 'jhi-history',
@@ -43,17 +45,31 @@ export class HistoryComponent implements OnInit {
   totalItems = 0;
   page = 1;
 
+  account?: Account;
+
   constructor(
     protected historyService: HistoryService,
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected modalService: NgbModal,
+    protected accountService: AccountService,
   ) {}
 
   trackId = (_index: number, item: IHistory): number => this.historyService.getHistoryIdentifier(item);
 
   ngOnInit(): void {
     this.load();
+
+    this.accountService.identity().subscribe(acc => this.account = acc!);
+    // console.log(this.account)
+    // console.log(this.histories)
+    // if ("ROLE_ADMIN" not in)
+    if (this.account?.authorities.find(e => e === "ROLE_ADMIN")) {
+
+    }
+    else {
+      this.histories = this.histories?.filter(e => e.user!.login === this.account!.login )
+    }
   }
 
   delete(history: IHistory): void {
@@ -107,6 +123,12 @@ export class HistoryComponent implements OnInit {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.histories = dataFromBody;
+
+    if (this.account?.authorities.find(e => e === "ROLE_ADMIN")) {
+    }
+    else {
+      this.histories = this.histories?.filter(e => e.user!.login === this.account!.login )
+    }
   }
 
   protected fillComponentAttributesFromResponseBody(data: IHistory[] | null): IHistory[] {

@@ -83,7 +83,7 @@
           </table>
         </div>
 
-        <button class="btn btn-primary mt-4" (click)="sent()">Predict</button>
+        <button class="btn btn-primary mt-4" (click)="sent()" [disabled]="editForm.invalid">Predict</button>
         <button class="btn btn-primary mt-4" (click)="savePrediction()">Save Prediction</button>
         <div *ngIf="prediction" class="mt-2 mb-2">
           <div *ngIf="prediction?.length == 4">
@@ -101,6 +101,8 @@
               <span>Close: {{item[3]}}</span> <br>
             </div>
           </div>
+
+          <button class="btn btn-primary mt-4" (click)="savePrediction()">Save Prediction</button>
         </div>
       </form>
     </div>

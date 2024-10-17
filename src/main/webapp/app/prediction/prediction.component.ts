@@ -28,10 +28,9 @@ export class PredictionComponent implements OnInit{
   prediction?: number[][];
   users?: IUser[];
   account?: Account;
-  history?: IHistory;
   editForm = this.fb.group({
-    windowSize: [null as number | null],
-    predictionDay: [null as number | null],
+    windowSize: [null as number | null, Validators.required],
+    predictionDay: [null as number | null, Validators.required],
     data: new FormArray([])
   })
   constructor(private fb: FormBuilder,
@@ -138,7 +137,6 @@ export class PredictionComponent implements OnInit{
       user: this.users?.filter(e => e.login == this.account?.login)[0]
     }
 
-    console.log(this.history)
     this.historyService.create(payload).subscribe();
   }
 }
