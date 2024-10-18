@@ -128,10 +128,32 @@ export class PredictionComponent implements OnInit{
       data.volume.push(item.volume);
     })
 
+    let resultData = {
+      open: [] as number[],
+      high: [] as number[],
+      low: [] as number[],
+      close: [] as number[]
+    }
+
+    if (this.prediction!.length == 3){
+      for (let i = 0; i < this.prediction!.length ; i++) {
+        resultData.open.push(this.prediction![i][0]);
+        resultData.high.push(this.prediction![i][1]);
+        resultData.low.push(this.prediction![i][2]);
+        resultData.close.push(this.prediction![i][3]);
+      }
+    }
+    if (this.prediction!.length == 4){
+      resultData.open.push(Number(this.prediction![0]));
+      resultData.high.push(Number(this.prediction![1]));
+      resultData.low.push(Number(this.prediction![2]));
+      resultData.close.push(Number(this.prediction![3]));
+    }
+
     const payload = {
       id: null,
       predictionInput: JSON.stringify(data),
-      predictionResult: JSON.stringify(data),
+      predictionResult: JSON.stringify(resultData),
       windowSize: this.editForm.getRawValue().windowSize,
       predictionDay: this.editForm.getRawValue().predictionDay,
       user: this.users?.filter(e => e.login == this.account?.login)[0]
