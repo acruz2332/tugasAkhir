@@ -33,9 +33,9 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/jhipsterProyekAkhir
-    username: jhipsterProyekAkhir
-    password:
+    url: jdbc:postgresql://postgres.railway.internal:5432/railway
+    username: postgres
+    password: WTCDzefChadouLzGTfMOdtzFDOsDbqaF
     hikari:
       poolName: Hikari
       auto-commit: false
