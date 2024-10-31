@@ -33,7 +33,7 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://postgres:WTCDzefChadouLzGTfMOdtzFDOsDbqaF@autorack.proxy.rlwy.net:39145/railway
+    url: jdbc:postgresql://autorack.proxy.rlwy.net:39145/railway
     username: postgres
     password: WTCDzefChadouLzGTfMOdtzFDOsDbqaF
     hikari:
