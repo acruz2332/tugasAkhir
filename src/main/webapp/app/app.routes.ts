@@ -8,12 +8,12 @@ import HomeComponent from './home/home.component';
 import NavbarComponent from './layouts/navbar/navbar.component';
 import LoginComponent from './login/login.component';
 import {PredictionComponent} from 'app/prediction/prediction.component';
+import {DashboardComponent} from 'app/entities/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    canActivate: [UserRouteAccessService],
     title: 'home.title',
   },
   {
@@ -42,6 +42,12 @@ const routes: Routes = [
     path: 'prediction',
     component: PredictionComponent,
     title: 'Prediction Page',
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    title: 'Dashboard Page',
     canActivate: [UserRouteAccessService]
   },
   {
