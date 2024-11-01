@@ -12,11 +12,13 @@
     <link rel="manifest" href="manifest.webapp" />
     <link rel="stylesheet" href="content/css/loading.css" />
     <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    connect-src 'self' https://tugasakhirmodel-production.up.railway.app;
-    script-src 'self';
-    style-src 'self';
-    img-src 'self'">
+    default-src *;
+    connect-src *;
+    script-src 'self' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline';
+    img-src *;
+    ">
+
 
     <!-- jhipster-needle-add-resources-to-root - JHipster will add new resources here -->
   </head>
