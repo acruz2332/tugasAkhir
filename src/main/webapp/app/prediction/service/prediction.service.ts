@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class PredictionService {
   // private apiUrl = 'http://127.0.0.1:5000/';
-  private apiUrl = 'http://tugasakhirmodel-production.up.railway.app/';
+  private apiUrl = 'https://tugasakhirmodel-production.up.railway.app/';
 
   constructor(private http: HttpClient) {}
 
