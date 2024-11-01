@@ -17,6 +17,6 @@ export class PredictionService {
   }
 
   getAllData(): Observable<any>{
-    return this.http.get(this.apiUrl+'getall');
+    return this.http.get(this.apiUrl+'getall'); 
   }
 }
