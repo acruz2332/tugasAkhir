@@ -14,10 +14,10 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="prediction_input" type="varchar(255)">
+            <column name="prediction_input" type="text">
                 <constraints nullable="false" />
             </column>
-            <column name="prediction_result" type="varchar(255)">
+            <column name="prediction_result" type="text">
                 <constraints nullable="false" />
             </column>
             <column name="prediction_day" type="integer">
