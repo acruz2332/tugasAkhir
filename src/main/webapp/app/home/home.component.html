@@ -1,23 +1,15 @@
-<div class="row">
-  <div class="col-md-3">
-  </div>
-
-  <div class="col-md-9">
-    <h1 class="display-4"><span>Welcome!</span></h1>
-
-    <p class="lead">This is your homepage</p>
-
+<div>
+  <div class="joke-img d-flex align-items-center justify-content-center flex-column">
     <div>
-      @if (account !== null) {
-          @if (account) {
-            <div class="alert alert-success">
+            <div class="d-flex align-items-center justify-content-center flex-column">
+              @if (account !== null) {
+                @if (account) {
               <span id="home-logged-message">You are logged in as user &quot;{{ account.login }}&quot;.</span>
+                }
+              }
+              <span>Click button below to access prediction page</span><br>
+              <button class="btn btn-primary" routerLink="/prediction">Prediction page</button>
             </div>
-
-            <span>Click button below to access prediction page</span><br>
-            <button class="btn btn-primary" routerLink="/prediction">Prediction page</button>
-          }
-      }
     </div>
 
   </div>

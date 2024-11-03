@@ -10,6 +10,17 @@ Main page styles
   background-size: contain;
 }
 
+.joke-img {
+  height: 108vh;
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  background-image: url('/content/images/jokeImage.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
   only screen and (-moz-min-device-pixel-ratio: 2),
