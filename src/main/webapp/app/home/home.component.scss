@@ -14,11 +14,11 @@ Main page styles
   height: 108vh;
   width: 100%;
   display: inline-block;
-  vertical-align: middle;
-  background-image: url('/content/images/jokeImage.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  //vertical-align: middle;
+  //background-image: url('/content/images/jokeImage.png');
+  //background-repeat: no-repeat;
+  //background-position: center;
+  //background-size: contain;
 }
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
