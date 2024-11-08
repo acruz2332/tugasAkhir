@@ -1,15 +1,17 @@
 <div>
-  <h1 class="d-flex align-items-center justify-content-center">Get your prediction and raise higher profit!</h1>
   <div class="joke-img d-flex align-items-center justify-content-center flex-column">
     <div>
             <div class="d-flex align-items-center justify-content-center flex-column">
+              <h1 class="d-flex align-items-center justify-content-center">Get your prediction and raise higher profit!</h1>
+
               @if (account !== null) {
                 @if (account) {
               <span id="home-logged-message">You are logged in as user &quot;{{ account.login }}&quot;.</span>
                 }
               }
-              <span>Click button below to access prediction page</span><br>
+              <h3>Click button below to access the prediction page</h3><br>
               <button class="btn btn-primary" routerLink="/prediction">Prediction page</button>
+              <h6 class="mt-4">*Please Install The Disable CSP in Chrome to proceed</h6>
             </div>
     </div>
 
